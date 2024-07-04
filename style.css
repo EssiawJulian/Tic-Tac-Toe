@@ -1,0 +1,11 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  width: 300px;
+  height: 300px;
+}
+
+.board > div{
+    background-color: gray;
+}

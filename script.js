@@ -27,6 +27,7 @@ const Player = (marker) => {
   return { checkPlayerWin, moveMade, marker };
 };
 
+// This function is responsible for making a placement on the board.
 const makePlacement = (player, cell, cells) => {
   const index = cell.getAttribute("data-index");
   console.log(index);
@@ -39,20 +40,11 @@ const makePlacement = (player, cell, cells) => {
 
     // Check if player wins
     setTimeout(() => {
-      if (player.checkPlayerWin(player.marker)) {
-        alert(`Player ${player.marker} wins!`);
-        gameBoard.resetBoard();
-        cells.forEach((cell) => (cell.textContent = ""));
-        gameBoard.gameInPlay = false;
-        return;
-      }
-
-      // Check if the game is a draw
-      if (gameBoard.getBoard().every((cell) => cell !== "")) {
-        alert("It's a draw!");
-        gameBoard.resetBoard();
-        cells.forEach((cell) => (cell.textContent = ""));
-        gameBoard.gameInPlay = false;
+      if (
+        player.checkPlayerWin(player.marker) ||
+        gameBoard.getBoard().every((cell) => cell !== "")
+      ) {
+        modalLoader.resultScreen(player);
         return;
       }
     }, 10);
@@ -64,13 +56,17 @@ const makePlacement = (player, cell, cells) => {
     @return Returns a getter method for the board array, a setter method to modify the board, and a reset method to clear the array.
 */
 const gameBoard = (() => {
-  let marker = ["X", "O"];
-  let currentPlayer = Player("O");
+  let currentPlayer = Player("X");
   let board = ["", "", "", "", "", "", "", "", ""];
   let gameInPlay = false;
   const getBoard = () => board;
   const setBoard = (index, value) => (board[index] = value);
-  const resetBoard = () => (board = ["", "", "", "", "", "", "", "", ""]);
+  const resetBoard = () => {
+    board = ["", "", "", "", "", "", "", "", ""];
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => (cell.textContent = ""));
+    currentPlayer = Player("X");
+  };
   const setCurrentPlayer = (player) => (currentPlayer = player);
   const getCurrentPlayer = () => currentPlayer;
   return {
@@ -83,7 +79,7 @@ const gameBoard = (() => {
   };
 })();
 
-
+// Start the game
 const startGame = () => {
   let cells = document.querySelectorAll(".cell");
   gameBoard.gameInPlay = true;
@@ -111,6 +107,48 @@ const startGame = () => {
       }
     });
   });
+
+  document.querySelector("#restartButton").addEventListener("click", () => {
+    gameBoard.resetBoard();
+  });
 };
 
-startGame();
+// Responsible for loading the modals
+const modalLoader = (() => {
+  const play = () => {
+    const playModal = document.querySelector(".play-modal");
+
+    document.addEventListener("DOMContentLoaded", () => {
+      playModal.showModal();
+    });
+
+    document.querySelector(".play-btn").addEventListener("click", () => {
+      playModal.close();
+      startGame();
+    });
+  };
+
+  const resultScreen = (player) => {
+    const resultModal = document.querySelector(".result-modal");
+    const resultText = document.querySelector(".result-text");
+    const playAgainBtn = document.querySelector(".play-again-btn");
+    const resultModalHeader = document.querySelector(".result-modal-header");
+    resultModal.showModal();
+    if (player.checkPlayerWin(player.marker)) {
+      const playerNum = player.marker === "X" ? 1 : 2;
+      resultText.textContent = `Player ${playerNum} wins! 🤫🧏`;
+    } else {
+      resultModalHeader.textContent = "Womp Womp! 🤷‍♂️";
+      resultText.textContent = `It's a draw! 🙊`;
+    }
+    playAgainBtn.addEventListener("click", () => {
+      resultModal.close();
+      gameBoard.resetBoard();
+      resultModalHeader.textContent = "Congratulations 🥳";
+    });
+  };
+
+  return { play, resultScreen };
+})();
+
+modalLoader.play();

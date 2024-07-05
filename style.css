@@ -82,78 +82,78 @@ button:hover {
   margin-top: 10px;
 }
 
-
 .player-container {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
 }
 
 .player {
-    text-align: center;
+  text-align: center;
 }
 
 .player h3 {
-    margin-bottom: 10px;
-    color: #555;
+  margin-bottom: 10px;
+  color: #555;
 }
 
 .disp-div {
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    margin: 5px;
-    transition: background-color 0.3s;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  transition: background-color 0.3s;
 }
 
 /* Play Screen */
 
-.play-modal, .result-modal {
-    width: 100%;
-    max-width: 500px;
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    background: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    animation: fadeIn 0.5s ease-in-out;
-    margin: auto auto;
+.play-modal,
+.result-modal {
+  width: 100%;
+  max-width: 500px;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+  margin: auto auto;
 }
 
 .play-modal::backdrop {
-    background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.9);
 }
 
 .play-modal h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .play-modal p {
-    font-size: 1em;
-    line-height: 1.5;
-    color: #555;
-    margin-bottom: 20px;
+  font-size: 1em;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 20px;
 }
 
 .play-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
